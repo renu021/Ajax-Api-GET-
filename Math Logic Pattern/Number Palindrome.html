@@ -1,0 +1,94 @@
+<script>
+  /*
+    CONCEPT :
+        PALINDROME NUMBER =>  IF REVERSED NUMBER IS SAME AS ORIGINAL NUMNBER "PALINDROME"
+                    EXAMPLE : ORIGINAL NUMBER = 121 ; REVERSED NUMBER = 121 
+
+                             IF REVERSED NUMBER IS NOT SAME AS ORIGINAL NUMBER "NOT PALINDROME"
+                    EXAMPLE : ORINIAL NUMBER = 123 ; REVERSED NUMBER = 321
+
+*/
+
+  /*
+// BASIC CODE :  ORIGINALNUMBER ; LASTDIGIT ; REVERSEDNUMBER
+                1. STORE THE ORINIAL NUMBER IN TEMPORARY VARIABLE FOR LATER COMPARISON
+                   EXAMPLE : GIVEN NUMBER IS  = 123
+                       ACTIULA CODE : LET ORIGINAL NUMBER = 123
+
+                2. SEPRATE THE LAST DIGIT 3 AND STORE IT IN A VARIABLE 
+                   EXAMPLE : GIVEN NUMBER = 123
+                             LAST DIGIT = 3
+                HOW TO GET IT ?
+                        FORMULA : NUMBER % 10
+                                   IF : 123 % 10 = 3
+                                   IF : 305 % 10 = 5 
+                               SO,NOW GOT THE LAST DIGIT STORE IT IN A VARIABLE
+                 ACTUAL CODE : LET LASTDIGIT = NUMBER % 10
+                               NOW, LASTDIGIT = 3
+                         
+                3. SWAPPING LAST TWO DIGIT 
+                    EXAMPLE : GIVEN NUMBER IS = 123
+                              LAST TWO DIGIT = 23
+                              EXPECTED OUTPUT = 32
+                    HOW TO SWAPE ?
+                             NOW, NEW VARIABLE CALLED "REVERSEDNUMBER" PREVIOUSLY IT'S NUMBER IS 0 LATER ON ASSIGN REVERSED NUMBER
+                                  REVERSEDNUMBER = 0
+                            FORMLA : 0 * 10 + LASTDIGIT
+                                     0 * 10 = 0 
+                                        0 + 3 = 3
+                                   WE GOT FIRST DIGI IN OUR REVERSEDIGIT = 3 
+                                   
+                4. NOW WE WANT PERIVOUS DIT FOR NEXT LOOP    
+                    EXAMPLE : GIVEN NUMBER = 123
+                              ASSING  PREVIOUS DIGITS TO NUMBER = 12
+                          HOW TO GET 12 FORM 123 ?   : GIVEN  NUMBER DIVIDED BY 10
+                               FORMULA : 123 / 10 = 12.3 
+                                        I WANT ONLY ROUND VALUE WHICH IS 12 SO, MATH.FLOOR()
+                                          MATH.FLOOR(NUMBER / 10)   
+                                        NOW, I GET 123 / 10 = 12
+                            ACTUAL CODE : MATH.FLOOR(NUMBER / 10)
+                            NOW, WE ARE CALLING THE FUNCTION AGAIN FOR ARGUMENT :NUMBER(12)            
+
+*/
+
+  // Concept based code
+        let number = 123;
+        let originalNumber = number;
+        let reversedNumber = 0;
+
+        while (number > 0) {
+            let lastDigit = number % 10;
+            reversedNumber = reversedNumber * 10 + lastDigit;
+            number = Math.floor(number / 10);
+        }
+
+        console.log(reversedNumber);
+
+        let result =( reversedNumber === originalNumber ) ? "palindrome" : "not palindrome";
+
+        console.log(result);
+
+
+
+
+
+
+
+  // let put these code inside a funtion
+        function isPalindrome(number) {
+        
+            let originalNumber = number;
+            let reversedNumber = 0;
+
+            while (number > 0) {
+            let lastDigit = number % 10;
+            reversedNumber = reversedNumber * 10 + lastDigit;
+            number = Math.floor(number / 10);
+            }
+
+            let result =( reversedNumber === originalNumber ) ? "palindrome" : "not palindrome";
+            return result
+        }
+
+  document.write(isPalindrome(121))      
+</script>

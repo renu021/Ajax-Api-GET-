@@ -1,0 +1,25 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+
+
+.displayer{
+    width: 13rem;
+    height: 5rem;
+    background-color: gray;
+    
+   
+}
+
+
+.calc-btn{
+    width: 3rem;
+    height: 3rem;
+    border-radius: 30px;
+   
+    
+}

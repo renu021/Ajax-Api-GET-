@@ -1,0 +1,163 @@
+
+    
+  <div class="contentContainer"></div>
+
+  
+  
+  
+  
+  
+  <script>
+  /*  // STEP : 1
+   // About : XMLHttpRequest
+   # XMLHttpRequest =>" built-in JavaScript object" => XMLHttpRequest={.....} 
+   # this object contains all the properties and methods(function) 
+     communicate with server for sending httprequest and receiving responsed data "asynchronously" without having to reload the entire page.
+   # we are assinging this built-in-object to a userdefined variable and accessing the properties inside "XMLHttpRequest" by using userdefined variable
+  */
+  
+  
+      const xhr = new XMLHttpRequest();
+      console.log(xhr)
+  
+  
+  
+  
+  /* // STEP : 3
+       # .onreadystatechange => is an builtin method in "XMLHttpRequest".it is an event handler that is triggered whenever the readyState property changes.
+       # check the status of "request sending and receiving process"
+       # this function has bulitin properties to check the state, status and responseText 
+       # state as "readyState" : 0 to 4 steps
+       # these states => used to check the process of sending and receiving  data. it should cross all the step one by one to compelete it's work
+          READSTATE STEPS :
+          0 => UNSENT -- XMLHttpRequest object has been created, but the open() method has not initilaized
+          1 => OPENED -- open() method values has been declared(called), but the send() method has not used to access the valu
+          2 => HEADERS_RECEIVED --  send() method is declared(called), and the request send to the specified api
+          3 => LOADING -- server is on the process of sending api data to "responseText" property, not all data received partially recevied on process of getting
+          4 => DONE -- "responseText" received all the data completely form the server
+       # responseText => is an bultin property in  "XMLHttpRequest" this is an "string datatype"  
+         Example : response: "{receive the response from server data in any format(json,xml,html) but when it received here it will be converted as string because this propery is an "string datatype"}"
+         we have to convert the string data into usable object  by unsing  "JSON.parse(xhr.responseText)" and assign this converted data in another new variable
+         Example :  const responseData = JSON.parse(xhr.responseText);
+       # HTTP status code => is also an bultin property in  "XMLHttpRequest"
+         403 : Forbidden =>  The server understood the client's request, but it refuses to authorize it, because client doesn't have the necessary permissions to access the requested resource.that is  they are not "logged in " to access the private dashboard.
+         404 : Not Found =>  The server receives the request but cannot find the resource corresponding to the specified URL. when url is incorrect
+         200 : OK => The server successfully finds the requested resource (like : home page) and is ready to respond.
+  */
+    xhr.onreadystatechange = () => {
+      console.log("readystate : " + xhr.readyState)
+      console.log("Status : " + xhr.status)
+      console.log("responseText : " + xhr.responseText)
+  
+  
+      if(xhr.readyState === 4) 
+      {
+          if(xhr.status === 200)
+          {
+              console.log("Request was Successful : ", xhr.responseText )
+  
+              const responseData = JSON.parse(xhr.responseText)
+              console.log(responseData)
+              console.log(responseData[0])
+//calling a function called displayResponse inside onreadystatechange function
+// if i got my Data form api im passing that Data as a argument to displayResponse for displaying it on UI
+             // displayResponse(responseData) 
+              showToUser(responseData)
+
+          }
+          else
+          if(xhr.status === 404)
+          {
+              console.log("Resource is not Found Url is incorrect : " + xhr.responseText  )
+          }
+          else
+          if(xhr.status === 403)
+          {
+              console.log("Forbidden Your are not allowed to access the data : " + xhr.responseText)
+          }
+          else
+          {
+              // many status Error is availble 
+              console.log("Unexpected Status Error :" , xhr.status)
+          }
+      }
+    }
+  
+  
+  
+  
+  
+  
+  
+  
+  /*    // STEP : 2
+     # .open() => this is a method inside the "XMLHttpRequest object" . we are accessing by userdefined variable "xhr.open()"
+     # .open() => this method is not sending the request.this property is used to initialize(provide) details about the api request. 
+       this .open() accept 3 defined values as it's argument (methodtype, apiurl, ascyn/sync(ture/false)=>(optional))
+     # .send() => this method will access the arguments of .open() and process the function
+        1. method => how we are going the use the data
+        2. url =>   where is the data give me address for fetching
+        3. async/sync => how i should display the data (async) u can access the other options in UI untill i fetch the data and show on UI
+           (sync) i will pause the UI u can access any other opitions in UI untill i fetch the requested data
+     # decalare .send() after the .open() send will access the value inside the .open and process it  
+  */  
+  xhr.open("GET", "https://jsonplaceholder.typicode.com/posts")
+  xhr.send()
+  
+  
+  
+  
+  
+  
+  
+      // STEP : 3  # "DISPLAYRESPONSE" IS USER DEFINIED FUNCTION NAME ; NOT A BULIT-IN FUNCTION OF "XMLHTTPREQUEST"
+   /* 
+      function displayResponse(data) 
+    {
+        // Unsuccess : it is not an object to access value using key, it a array containing object, for loop is used to get title form each array object
+          document.getElementById("output").innerHTML = data.title
+      
+        // Usuccess : it will print only the last item title
+          document.getElementById("output").innerHTML = data[i].title
+
+        // partially Success it will Concatenate all the titles but as a paragraph because it will add the new value with existing value
+         document.getElementById("output").innerHTML = data[i].title 
+    } 
+*/
+
+
+   const container = document.getElementsByClassName("contentContainer")[0]
+
+/*
+   //partially success : use innerHTML in newline because innerHTML property directly to the result of the assignment, which is data[i]As a result, newElement becomes the string data[i].title instead of a DOM element.title and instead of append use appendChild
+   function showToUser(data)
+   {
+    for(let i=0 ; i < data.length ; i++)
+    {
+      const newElement = document.createElement("h1").innerHTML = data[i].title
+      container.append(newElement)
+
+    }
+   }
+*/
+
+
+   function showToUser(data)
+   {
+    for(let i=0 ; i < data.length ; i++)
+    {
+      const newElement = document.createElement("h1")
+      newElement.innerHTML = data[i].title
+      container.appendChild(newElement)
+
+    }
+   }
+
+
+
+
+
+
+
+
+  </script>
